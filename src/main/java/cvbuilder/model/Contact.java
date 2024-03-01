@@ -4,40 +4,42 @@
  */
 package cvbuilder.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ndeni
  */
 public class Contact 
 {
-    private String phoneNumber;
-    private String address;
+    private ArrayList<String> phoneNumber;
+    private ArrayList<String> address;
     
     //constructor
     public Contact(String phoneNumber, String address)
     {
-        this.phoneNumber = phoneNumber;
-        this.address = address;
+        this.phoneNumber.add(phoneNumber);
+        this.address.add(address);
     }
 
     //getters and setters
 
-    public String getPhoneNumber() 
+    public ArrayList<String> getPhoneNumber() 
     {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) 
+    public void setPhoneNumber(ArrayList<String> phoneNumber) 
     {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAddress() 
+    public ArrayList<String> getAddress() 
     {
         return address;
     }
 
-    public void setAddress(String address) 
+    public void setAddress(ArrayList<String> address) 
     {
         this.address = address;
     }

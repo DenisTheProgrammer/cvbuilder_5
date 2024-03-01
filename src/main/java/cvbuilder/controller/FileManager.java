@@ -5,7 +5,6 @@
 package cvbuilder.controller;
 
 import cvbuilder.model.User;
-import cvbuilder.model.UserGroup;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -17,7 +16,7 @@ public class FileManager
 {
     public void userInitialiser(String fileName)
     {
-        UserGroup uGroup = UserGroup.getInstance();
+        /*UserGroup uGroup = UserGroup.getInstance();
         try
             (
                 FileReader file = new FileReader(fileName);
@@ -28,7 +27,7 @@ public class FileManager
             while((line = reader.readLine()) != null)//while there are still lines to be read
             {
                 String[] words = line.split(",");//split the words into an array
-                User u = new User(words[0], words[1], words[2], words[3]);//plug the words into the constructor to create a new user
+                User u = new User(words[1], words[2], words[3]);//plug the words into the constructor to create a new user
                 uGroup.addUser(u);//add the user to the group
             }
         }
@@ -36,6 +35,6 @@ public class FileManager
         catch (Exception e)
         {
            e.printStackTrace();
-        }
+        }*/
     }
 }

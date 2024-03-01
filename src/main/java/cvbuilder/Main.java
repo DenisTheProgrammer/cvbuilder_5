@@ -5,7 +5,6 @@
 package cvbuilder;
 
 import cvbuilder.controller.FileManager;
-import cvbuilder.model.UserGroup;
 import cvbuilder.view.MainViewer;
 
 /**
