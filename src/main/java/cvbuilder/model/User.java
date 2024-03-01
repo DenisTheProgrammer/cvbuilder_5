@@ -14,18 +14,14 @@ public class User
     private String title;
     private String name;
     private String email;
-    private String phoneNumber;
-    private String address;
     
     //constructor
-    public User(String userNumber,String title, String name, String email, String phoneNumber, String address)
+    public User(String userNumber,String title, String name, String email)
     {
         this.userNumber = userNumber;
         this.title = title;
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
     }
 
     //getters and setters
@@ -69,30 +65,11 @@ public class User
         this.email = email;
     }
 
-    public String getPhoneNumber() 
-    {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) 
-    {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() 
-    {
-        return address;
-    }
-
-    public void setAddress(String address) 
-    {
-        this.address = address;
-    }
     
     @Override
     public String toString()
     {
-        return this.getUserNumber() + " " + this.getTitle() + " " + this.getName() + " " + this.getEmail()+ " " + this.getPhoneNumber() + " " + this.getAddress();
+        return this.getUserNumber() + " " + this.getTitle() + " " + this.getName() + " " + this.getEmail();
     }
     
 }

@@ -14,10 +14,11 @@ public class UserGroup
 {
     private static UserGroup instance;
     private ArrayList<User> userGroup = new ArrayList<>();
+    private ArrayList<Contact> userContact = new ArrayList<>();
     
     //constructor and singleton
     private UserGroup(){} //disable constructor to enforce the singleton pattern
-    public static UserGroup getInstance()
+    public static UserGroup getInstance()//enforcing a singleton pattern means the group of users will be the same everywhere
     {
         if(instance == null)
         {
@@ -42,5 +43,20 @@ public class UserGroup
     public void addUser(User user)
     {
         userGroup.add(user);
+    }
+
+    public ArrayList<Contact> getUserContact() 
+    {
+        return userContact;
+    }
+
+    public void setUserContact(ArrayList<Contact> userContact) 
+    {
+        this.userContact = userContact;
+    }
+    
+    public void addContact(Contact contact)
+    {
+        userContact.add(contact);
     }
 }

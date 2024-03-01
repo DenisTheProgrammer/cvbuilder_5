@@ -28,7 +28,7 @@ public class FileManager
             while((line = reader.readLine()) != null)//while there are still lines to be read
             {
                 String[] words = line.split(",");//split the words into an array
-                User u = new User(words[0], words[1], words[2], words[3], words[4], words[5]);//plug the words into the constructor to create a new user
+                User u = new User(words[0], words[1], words[2], words[3]);//plug the words into the constructor to create a new user
                 uGroup.addUser(u);//add the user to the group
             }
         }
