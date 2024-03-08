@@ -12,14 +12,19 @@ import java.util.ArrayList;
  */
 public class Contact 
 {
+    private static Contact instance;
     private ArrayList<String> phoneNumber;
     private ArrayList<String> address;
     
-    //constructor
-    public Contact(String phoneNumber, String address)
+    //constructor and singleton
+    private Contact(){}//disable constructor
+    public static Contact getInstance()
     {
-        this.phoneNumber.add(phoneNumber);
-        this.address.add(address);
+        if(instance == null)
+        {
+            instance = new Contact(); 
+        }
+        return instance;
     }
 
     //getters and setters

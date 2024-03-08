@@ -12,16 +12,21 @@ import java.util.ArrayList;
  */
 public class User 
 {
+    private static User instance;
     private ArrayList<String> title = new ArrayList<>();
     private ArrayList<String> name = new ArrayList<>();
     private ArrayList<String> email = new ArrayList<>();
     
-    //constructor
-    public User(String title, String name, String email)
+    //constructor and singleton
+    private User(){}//disable constructor
+    
+    public static User getInstance()//get instance
     {
-        this.title.add(title);
-        this.name.add(name);
-        this.email.add(email);
+        if(instance == null)
+        {
+            instance = new User();
+        }
+        return instance;
     }
 
     //getters and setters

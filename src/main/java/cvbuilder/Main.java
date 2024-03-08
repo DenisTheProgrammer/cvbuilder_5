@@ -15,11 +15,9 @@ public class Main
 {
     public static void main(String[] args)
     {
-        /*FileManager fileManager = new FileManager();
+        FileManager fileManager = new FileManager();
         fileManager.userInitialiser("userStorer.csv");
         
-        UserGroup uGroup = UserGroup.getInstance();
-        System.out.println(uGroup.getUserGroup());*/
         
         MainViewer view = MainViewer.getInstance();
         view.displayGUI();
