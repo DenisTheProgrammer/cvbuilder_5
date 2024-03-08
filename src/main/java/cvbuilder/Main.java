@@ -20,6 +20,6 @@ public class Main
         
         
         MainViewer view = MainViewer.getInstance();
-        view.displayGUI();
+        view.displayGUI("userStorer.csv");
     }
 }
