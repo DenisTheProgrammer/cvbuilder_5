@@ -17,9 +17,10 @@ public class Main
     {
         FileManager fileManager = new FileManager();
         fileManager.userInitialiser("userStorer.csv");
+        fileManager.contactInitialiser("contactStorer.csv");
         
         
         MainViewer view = MainViewer.getInstance();
-        view.displayGUI("userStorer.csv");
+        view.displayGUI();
     }
 }

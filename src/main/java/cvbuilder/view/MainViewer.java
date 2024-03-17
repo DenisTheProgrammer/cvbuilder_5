@@ -160,17 +160,19 @@ public class MainViewer
     
     
     
-    public void displayGUI(String fileName)
+    public void displayGUI()
     {
         appFrame.setName("CV-Builder");
         appFrame.setLayout(new BorderLayout());
         
         
         panelBuilder builder = new panelBuilder();
-        User user = User.getInstance();
-        builder.userPanSetUp(titlePan, "title", user, fileName);
-        builder.userPanSetUp(namePan, "name", user, fileName);
-        builder.userPanSetUp(emailPan, "email", user, fileName);
+        builder.userPanSetUp(titlePan, "title", "userStorer.csv");
+        builder.userPanSetUp(namePan, "name", "userStorer.csv");
+        builder.userPanSetUp(emailPan, "email", "userStorer.csv");
+        
+        builder.contactPanSetUp(phonePan, "phoneNumber", "contactStorer.csv");
+        builder.contactPanSetUp(addressPan, "address", "contactStorer.csv");
         
         
         

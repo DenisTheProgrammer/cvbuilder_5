@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Contact 
 {
     private static Contact instance;
-    private ArrayList<String> phoneNumber;
-    private ArrayList<String> address;
+    private ArrayList<String> phoneNumber = new ArrayList<>();
+    private ArrayList<String> address = new ArrayList<>();
     
     //constructor and singleton
     private Contact(){}//disable constructor

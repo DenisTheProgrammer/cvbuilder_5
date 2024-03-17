@@ -4,6 +4,7 @@
  */
 package cvbuilder.controller;
 
+import cvbuilder.model.Contact;
 import cvbuilder.model.User;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -34,8 +35,13 @@ public class panelBuilder
         this.radButtons = radButtons;
     }
     
+    //get instances of user and contact
+    User user = User.getInstance();
+    Contact contact = Contact.getInstance();
+    
+    
     //methods
-    public void userPanSetUp(JPanel panel, String menu, User user, String fileName)
+    public void userPanSetUp(JPanel panel, String menu, String fileName)
     {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -90,6 +96,55 @@ public class panelBuilder
                 butPanStorer.add(butPanel);//keep the reference of the panels
                 
                 JRadioButton selButton = new JRadioButton(user.getEmail().get(i)); //new Radio Button per attribute
+                radButtons.add(selButton);
+                
+                JButton editButton = new JButton("Edit");
+                JButton deleteButton = new JButton("Delete");
+                
+                butPanel.add(selButton);
+                butPanel.add(editButton);
+                butPanel.add(deleteButton);//add all the buttons to the panel
+                
+                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
+            }
+        } 
+    }
+    
+    public void contactPanSetUp(JPanel panel, String menu, String fileName)
+    {
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        
+        if (menu.equals("phoneNumber"))
+        {
+            for(int i = 0; i < contact.getPhoneNumber().size(); i++)
+            {
+                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
+                butPanStorer.add(butPanel);//keep the reference of the panels
+                
+                JRadioButton selButton = new JRadioButton(contact.getPhoneNumber().get(i)); //new Radio Button per attribute
+                radButtons.add(selButton);
+                
+                JButton editButton = new JButton("Edit");
+                JButton deleteButton = new JButton("Delete");
+                
+                butPanel.add(selButton);
+                butPanel.add(editButton);
+                butPanel.add(deleteButton);//add all the buttons to the panel
+                
+                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
+            }
+        }
+        else if (menu.equals("address"))
+        {
+            for(int i = 0; i < contact.getAddress().size(); i++)
+            {
+                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
+                butPanStorer.add(butPanel);//keep the reference of the panels
+                
+                JRadioButton selButton = new JRadioButton(contact.getAddress().get(i)); //new Radio Button per attribute
                 radButtons.add(selButton);
                 
                 JButton editButton = new JButton("Edit");
