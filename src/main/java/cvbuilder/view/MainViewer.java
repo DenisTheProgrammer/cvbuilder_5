@@ -167,12 +167,12 @@ public class MainViewer
         
         
         panelBuilder builder = new panelBuilder();
-        builder.userPanSetUp(titlePan, "title", "userStorer.csv");
-        builder.userPanSetUp(namePan, "name", "userStorer.csv");
-        builder.userPanSetUp(emailPan, "email", "userStorer.csv");
+        builder.panSetUp(titlePan, "title", "userStorer.csv");
+        builder.panSetUp(namePan, "name", "userStorer.csv");
+        builder.panSetUp(emailPan, "email", "userStorer.csv");
         
-        builder.contactPanSetUp(phonePan, "phoneNumber", "contactStorer.csv");
-        builder.contactPanSetUp(addressPan, "address", "contactStorer.csv");
+        builder.panSetUp(phonePan, "phoneNumber", "contactStorer.csv");
+        builder.panSetUp(addressPan, "address", "contactStorer.csv");
         
         
         

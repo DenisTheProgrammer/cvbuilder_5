@@ -41,7 +41,7 @@ public class panelBuilder
     
     
     //methods
-    public void userPanSetUp(JPanel panel, String menu, String fileName)
+    public void panSetUp(JPanel panel, String menu, String fileName)
     {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -108,16 +108,7 @@ public class panelBuilder
                 panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
             }
         } 
-    }
-    
-    public void contactPanSetUp(JPanel panel, String menu, String fileName)
-    {
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        
-        if (menu.equals("phoneNumber"))
+        else if (menu.equals("phoneNumber"))
         {
             for(int i = 0; i < contact.getPhoneNumber().size(); i++)
             {

@@ -16,8 +16,7 @@ public class Main
     public static void main(String[] args)
     {
         FileManager fileManager = new FileManager();
-        fileManager.userInitialiser("userStorer.csv");
-        fileManager.contactInitialiser("contactStorer.csv");
+        fileManager.classInitialiser("data/cv_repo_5.csv");
         
         
         MainViewer view = MainViewer.getInstance();
