@@ -32,33 +32,27 @@ public class FileManager
             while((line = reader.readLine()) != null)//while there are still lines to be read
             {
                 lineCounter++;
-                System.out.println(lineCounter);
                 String[] words = line.split(",");//split the words into an array
                 for (int i = 0; i < words.length; i++)
                 {
                     sepWords.add(words[i]);
-                    //System.out.println(words[i]);
                 }
-                System.out.println("To remove " + sepWords.get(0));
-                System.out.println("To remove " + sepWords.get(1));
 
                 sepWords.remove(0);
                 sepWords.remove(0); 
 
-                
-                
                 if(lineCounter == 2)
                 {
                     for(String word : sepWords)
                     {
-                        user.getTitle().add(word);
+                        user.getName().add(word);
                     }
                 }
                 else if(lineCounter == 3)
                 {
                     for(String word : sepWords)
                     {
-                        user.getName().add(word);
+                        user.getTitle().add(word);
                     }
                 }
                 else if(lineCounter == 4)
@@ -79,8 +73,10 @@ public class FileManager
                 {
                     for(String word : sepWords)
                     {
-                        contact.getAddress().add(word);
-                    }s
+                        String cleanWord = word.replaceAll("%", " ").replaceAll("/", " ");
+                        contact.getAddress().add(cleanWord);
+
+                    }
                 }
                 
                 sepWords.clear();

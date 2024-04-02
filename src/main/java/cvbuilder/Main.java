@@ -4,7 +4,6 @@
  */
 package cvbuilder;
 
-import cvbuilder.controller.FileManager;
 import cvbuilder.view.MainViewer;
 
 /**
@@ -15,11 +14,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        FileManager fileManager = new FileManager();
-        fileManager.classInitialiser("data/cv_repo_5.csv");
-        
-        
         MainViewer view = MainViewer.getInstance();
-        view.displayGUI();
+        view.displayGUI("data/cv_repo_5.csv");
     }
 }

@@ -4,6 +4,7 @@
  */
 package cvbuilder.view;
 
+import cvbuilder.controller.FileManager;
 import cvbuilder.controller.panelBuilder;
 import cvbuilder.model.User;
 import java.awt.BorderLayout;
@@ -160,19 +161,21 @@ public class MainViewer
     
     
     
-    public void displayGUI()
+    public void displayGUI(String fileName)
     {
         appFrame.setName("CV-Builder");
         appFrame.setLayout(new BorderLayout());
         
+        FileManager fileManager = new FileManager();
+        fileManager.classInitialiser("data/cv_repo_5.csv");
         
         panelBuilder builder = new panelBuilder();
-        builder.panSetUp(titlePan, "title", "userStorer.csv");
-        builder.panSetUp(namePan, "name", "userStorer.csv");
-        builder.panSetUp(emailPan, "email", "userStorer.csv");
+        builder.panSetUp(titlePan, "title", fileName);
+        builder.panSetUp(namePan, "name", fileName);
+        builder.panSetUp(emailPan, "email", fileName);
         
-        builder.panSetUp(phonePan, "phoneNumber", "contactStorer.csv");
-        builder.panSetUp(addressPan, "address", "contactStorer.csv");
+        builder.panSetUp(phonePan, "phoneNumber", fileName);
+        builder.panSetUp(addressPan, "address", fileName);
         
         
         
