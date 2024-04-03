@@ -6,6 +6,7 @@ package cvbuilder.controller;
 
 import cvbuilder.model.Contact;
 import cvbuilder.model.User;
+import cvbuilder.view.MainViewer;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -98,8 +100,14 @@ public class panelBuilder
                 continue;
             }
             
-            JButton editButton = new JButton("Edit");
-            JButton deleteButton = new JButton("Delete");
+            JButton editButton = new JButton("Edit"); //creating the edit button
+            JButton deleteButton = new JButton("Delete"); //creating the delete button
+            
+            editButton.addActionListener(new radListener(selButton, fileName));//link the button to the class for functionality
+            editButton.setActionCommand("edit"); //set the name of the action command
+            
+            deleteButton.addActionListener(new radListener(selButton, fileName));//link the button to the class
+            deleteButton.setActionCommand("delete");//set the name of the action command
 
             butPanel.add(selButton);
             butPanel.add(editButton);
@@ -248,13 +256,61 @@ public class panelBuilder
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if(e.getActionCommand().equals("edit"))
+            if(e.getActionCommand().equals("edit")) //handles the edit button
             {
-                //implement edit function here
+                String input = JOptionPane.showInputDialog("Enter new text:",selButton.getText());//create a JOptionPane that allows user input
+                                                                                                          //and displays the existing radio text
+                //System.out.println(input);
+                FileManager fileManager = new FileManager();
+                fileManager.tempCreator(fileName, input, selButton.getText(),"modify"); //this function writes to the temporary file
+                fileManager.overwriterFromTemp(fileName);
+
+                selButton.setText(input);
+                
+                User user = User.getInstance();
+                Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
+                
+                user.getTitle().clear(); //clear the title arrayList
+                user.getName().clear(); //clear the name arrayList
+                user.getEmail().clear(); //clear the email arrayList
+                
+                contact.getAddress().clear(); //clear the address arrayList
+                contact.getPhoneNumber().clear(); //clear the phone number arrayList
+                
+                fileManager.classInitialiser(fileName); //we re initialise to keep the model in step with our view
             }
-            else if(e.getActionCommand().equalsIgnoreCase("delete"))
+            else if(e.getActionCommand().equalsIgnoreCase("delete")) //handles the delete button
             {
-                //implement delete function here
+                FileManager fileManager = new FileManager();//create a new instance of our fresh class
+                fileManager.tempCreator(fileName, selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
+                fileManager.overwriterFromTemp(fileName);//this overwrites the file
+                
+                
+                User user = User.getInstance();
+                Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
+                
+                user.getTitle().clear(); //clear the title arrayList
+                user.getName().clear(); //clear the name arrayList
+                user.getEmail().clear(); //clear the email arrayList
+                
+                contact.getAddress().clear(); //clear the address arrayList
+                contact.getPhoneNumber().clear(); //clear the phone number arrayList
+                
+                
+                fileManager.classInitialiser(fileName);//create the new version of the arrayList
+                
+                MainViewer app = MainViewer.getInstance();
+                
+                
+                // a way to visually remove things from the view should be implemented here
+                
+                
+                
+                app.getUserTabs().revalidate();
+                app.getContactTabs().revalidate();
+                
+                app.getUserTabs().repaint(); 
+                app.getContactTabs().repaint();
             }
         }
         
