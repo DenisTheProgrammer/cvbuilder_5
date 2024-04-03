@@ -26,6 +26,7 @@ public class panelBuilder
 {
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();//storing the reference to the radio buttons here, will be useful later
     private ArrayList<JPanel> butPanStorer = new ArrayList<>(); //storing the references of the button panels in here
+    private ArrayList<JPanel> panelStorer = new ArrayList<>(); //storing the reference to each panel
     
     //getters and setters
 
@@ -48,7 +49,14 @@ public class panelBuilder
     {
         this.butPanStorer = butPanStorer;
     }
-    
+
+    public ArrayList<JPanel> getPanelStorer() {
+        return panelStorer;
+    }
+
+    public void setPanelStorer(ArrayList<JPanel> panelStorer) {
+        this.panelStorer = panelStorer;
+    }
     
     
     //get instances of user and contact
@@ -97,16 +105,18 @@ public class panelBuilder
             }
             else
             {
+                int remButPan = butPanStorer.indexOf(butPanel);
+                butPanStorer.remove(remButPan);
                 continue;
             }
             
             JButton editButton = new JButton("Edit"); //creating the edit button
             JButton deleteButton = new JButton("Delete"); //creating the delete button
             
-            editButton.addActionListener(new radListener(selButton, fileName));//link the button to the class for functionality
+            editButton.addActionListener(new radListener(selButton, fileName, panel));//link the button to the class for functionality
             editButton.setActionCommand("edit"); //set the name of the action command
             
-            deleteButton.addActionListener(new radListener(selButton, fileName));//link the button to the class
+            deleteButton.addActionListener(new radListener(selButton, fileName, panel));//link the button to the class
             deleteButton.setActionCommand("delete");//set the name of the action command
 
             butPanel.add(selButton);
@@ -114,6 +124,7 @@ public class panelBuilder
             butPanel.add(deleteButton);//add all the buttons to the panel
 
             panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
+            panelStorer.add(panel);
             
         }
         
@@ -225,6 +236,7 @@ public class panelBuilder
     {
         private JRadioButton selButton;
         private String fileName;
+        private JPanel panel;
 
         //getters and setters
         public String getFileName() {
@@ -242,12 +254,22 @@ public class panelBuilder
         public void setSelButton(JRadioButton selButton) {
             this.selButton = selButton;
         }
+
+        public JPanel getPanel() {
+            return panel;
+        }
+
+        public void setPanel(JPanel panel) {
+            this.panel = panel;
+        }
+        
         
         //constructor
-        public radListener(JRadioButton selButton, String fileName)//constructor that takes a parameter, see edit button
+        public radListener(JRadioButton selButton, String fileName, JPanel panel)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
             this.fileName = fileName;
+            this.panel = panel;
         }
         
         //methods
@@ -301,10 +323,14 @@ public class panelBuilder
                 
                 MainViewer app = MainViewer.getInstance();
                 
+                int indexRad = getRadButtons().indexOf(selButton);
+                int indexPan = panelStorer.indexOf(panel);
+                panelStorer.get(indexPan).remove(butPanStorer.get(indexRad));
                 
-                // a way to visually remove things from the view should be implemented here
-                
-                
+                for(int i = 0; i < panelStorer.size();i++)
+                {
+                    System.out.println(panelStorer.get(i));
+                }
                 
                 app.getUserTabs().revalidate();
                 app.getContactTabs().revalidate();

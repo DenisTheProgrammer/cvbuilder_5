@@ -93,7 +93,7 @@ public class FileManager
     
     public void tempCreator(String fileName, String change, String comparator, String choice)
     {
-        if (choice.equals("modify"))  //currently having a glitch where the last section doesnt update, I suspect because of the special characters
+        if (choice.equals("modify"))  //just for completion handle the case when the change is empty string
         {
             try //this will be used to create a new temporary file where the modified content is written
                 (
@@ -110,9 +110,10 @@ public class FileManager
                         String[] details = line.split(",");
                         for(int i = 0; i < details.length; i ++)
                         {
+                            String filterDetails = details[i].replaceAll("%", " ").replaceAll("/", " ");
                             if(!(change.equals(comparator)))
                             {
-                               if (comparator.equals(details[i]))
+                               if (comparator.equals(filterDetails))
                                {
                                    if(i == (details.length - 1))
                                     {
@@ -151,7 +152,7 @@ public class FileManager
                 }
         }
         
-        else if(choice.equals("delete")) //this works however the problem is that right now a whole section dissapears whereas we only need 1 element to go
+        else if(choice.equals("delete")) 
         {
        
        
@@ -169,35 +170,25 @@ public class FileManager
                     
                     for (int i = 0; i < words.length; i++)
                     {
-                        if(change.equals(words[i]))
+                        String filterWords = words[i].replaceAll("%", " ").replaceAll("/", " ");
+                        if(change.equals(filterWords))
                         {
-                            decision = "delete";
-                            break;
+                            continue;
                         }
-                    }
-                    
-                    System.out.println(decision);
-                    
-                    if (decision.equals("delete"))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        for (int j = 0; j < words.length; j++)
+                        else
                         {
-                            if(j == (words.length - 1))
+                            if(i == (words.length - 1))
                             {
-                                writer.write(words[j]); 
+                                writer.write(words[i]); 
                             }
                         
                             else
                             {   
-                                writer.write(words[j]+","); 
+                                writer.write(words[i]+","); 
                             } 
                         }
-                    } 
-                 writer.newLine();           
+                    }
+                    writer.newLine();           
                 }
            
             }
