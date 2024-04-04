@@ -41,6 +41,10 @@ public class MainViewer
     private JMenuItem save = new JMenuItem("Save");
     private JMenuItem quit = new JMenuItem("Quit");
     
+    private JMenu cv = new JMenu("CV");
+    private JMenuItem showCV = new JMenuItem("Show CV");
+    private JMenuItem saveCV = new JMenuItem("Save CV");
+    
     //constructor + singleton
     private MainViewer(){}//disable constructor to enforce singleton
     
@@ -215,10 +219,14 @@ public class MainViewer
         
         //this is the file menu at the top of the page
         menu.add(file);
+        menu.add(cv);
         
         file.add(open);
         file.add(save);
         file.add(quit);
+        
+        cv.add(showCV);
+        cv.add(saveCV);//add an action function and link both of these
         
         open.addActionListener(new FileMenuAction());
         open.setActionCommand("open");
