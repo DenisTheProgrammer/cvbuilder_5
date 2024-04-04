@@ -5,11 +5,13 @@
 package cvbuilder.view;
 
 import cvbuilder.controller.FileManager;
-import cvbuilder.controller.panelBuilder;
-import cvbuilder.model.User;
+import cvbuilder.controller.FileMenuAction;
+import cvbuilder.controller.PanelBuilder;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
@@ -32,6 +34,12 @@ public class MainViewer
     private JPanel emailPan = new JPanel();
     private JPanel phonePan = new JPanel();
     private JPanel addressPan = new JPanel();
+    
+    private JMenuBar menu = new JMenuBar();
+    private JMenu file = new JMenu("File");
+    private JMenuItem open = new JMenuItem("Open");
+    private JMenuItem save = new JMenuItem("Save");
+    private JMenuItem quit = new JMenuItem("Quit");
     
     //constructor + singleton
     private MainViewer(){}//disable constructor to enforce singleton
@@ -156,20 +164,80 @@ public class MainViewer
     {
         this.addressPan = addressPan;
     }
+
+    public JMenuBar getMenu() {
+        return menu;
+    }
+
+    public void setMenu(JMenuBar menu) {
+        this.menu = menu;
+    }
+
+    public JMenu getFile() {
+        return file;
+    }
+
+    public void setFile(JMenu file) {
+        this.file = file;
+    }
+
+    public JMenuItem getOpen() {
+        return open;
+    }
+
+    public void setOpen(JMenuItem open) {
+        this.open = open;
+    }
+
+    public JMenuItem getSave() {
+        return save;
+    }
+
+    public void setSave(JMenuItem save) {
+        this.save = save;
+    }
+
+    public JMenuItem getQuit() {
+        return quit;
+    }
+
+    public void setQuit(JMenuItem quit) {
+        this.quit = quit;
+    }
     
     
     
-    
-    
+    //methods
     public void displayGUI(String fileName)
     {
         appFrame.setName("CV-Builder");
         appFrame.setLayout(new BorderLayout());
         
+        //this is the file menu at the top of the page
+        menu.add(file);
+        
+        file.add(open);
+        file.add(save);
+        file.add(quit);
+        
+        open.addActionListener(new FileMenuAction());
+        open.setActionCommand("open");
+        
+        save.addActionListener(new FileMenuAction());
+        save.setActionCommand("save");
+        
+        quit.addActionListener(new FileMenuAction());
+        quit.setActionCommand("quit");
+        
+        appFrame.add(menu, BorderLayout.PAGE_START);
+        
+        //here is the file initiation for the view
+        
         FileManager fileManager = new FileManager();
         fileManager.classInitialiser("data/cv_repo_5.csv");
         
-        panelBuilder builder = new panelBuilder();
+        //building panels
+        PanelBuilder builder = new PanelBuilder();
         builder.panSetUp(titlePan, "title", fileName);
         builder.panSetUp(namePan, "name", fileName);
         builder.panSetUp(emailPan, "email", fileName);
@@ -178,13 +246,14 @@ public class MainViewer
         builder.panSetUp(addressPan, "address", fileName);
         
         
-        
+        //add tabs to the main tabs holder then to the frame and set layout
         mainTabs.addTab("User", userPan);
         mainTabs.addTab("Contact", contactPan);
         appFrame.add(mainTabs);
         userPan.setLayout(new BorderLayout());
         contactPan.setLayout(new BorderLayout());
         
+        //add the panels to their respective tab menu
         userPan.add(userTabs);
         userTabs.addTab("Title", titlePan);
         userTabs.addTab("Name", namePan);
@@ -194,6 +263,7 @@ public class MainViewer
         contactTabs.addTab("Phone", phonePan);
         contactTabs.addTab("Address", addressPan);
         
+        //set the frame - always do this at the end
         appFrame.setSize(800, 500);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         appFrame.setVisible(true);

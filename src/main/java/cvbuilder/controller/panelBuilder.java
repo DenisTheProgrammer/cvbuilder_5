@@ -22,7 +22,7 @@ import javax.swing.JRadioButton;
  *
  * @author ndeni
  */
-public class panelBuilder 
+public class PanelBuilder 
 {
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();//storing the reference to the radio buttons here, will be useful later
     private ArrayList<JPanel> butPanStorer = new ArrayList<>(); //storing the references of the button panels in here
