@@ -8,6 +8,7 @@ import cvbuilder.controller.FileManager;
 import cvbuilder.controller.FileMenuAction;
 import cvbuilder.controller.PanelBuilder;
 import java.awt.BorderLayout;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -44,6 +45,8 @@ public class MainViewer
     private JMenu cv = new JMenu("CV");
     private JMenuItem showCV = new JMenuItem("Show CV");
     private JMenuItem saveCV = new JMenuItem("Save CV");
+    
+    private File openFile;
     
     //constructor + singleton
     private MainViewer(){}//disable constructor to enforce singleton
@@ -208,7 +211,38 @@ public class MainViewer
     public void setQuit(JMenuItem quit) {
         this.quit = quit;
     }
-    
+
+    public JMenu getCv() {
+        return cv;
+    }
+
+    public void setCv(JMenu cv) {
+        this.cv = cv;
+    }
+
+    public JMenuItem getShowCV() {
+        return showCV;
+    }
+
+    public void setShowCV(JMenuItem showCV) {
+        this.showCV = showCV;
+    }
+
+    public JMenuItem getSaveCV() {
+        return saveCV;
+    }
+
+    public void setSaveCV(JMenuItem saveCV) {
+        this.saveCV = saveCV;
+    }
+
+    public File getOpenFile() {
+        return openFile;
+    }
+
+    public void setOpenFile(File openFile) {
+        this.openFile = openFile;
+    }
     
     
     //methods
@@ -242,7 +276,7 @@ public class MainViewer
         //here is the file initiation for the view
         
         FileManager fileManager = new FileManager();
-        fileManager.classInitialiser("data/cv_repo_5.csv");
+        fileManager.classInitialiser(fileName);
         
         //building panels
         PanelBuilder builder = new PanelBuilder();
@@ -270,6 +304,8 @@ public class MainViewer
         contactPan.add(contactTabs);
         contactTabs.addTab("Phone", phonePan);
         contactTabs.addTab("Address", addressPan);
+        
+        openFile = new File(fileName);
         
         //set the frame - always do this at the end
         appFrame.setSize(800, 500);

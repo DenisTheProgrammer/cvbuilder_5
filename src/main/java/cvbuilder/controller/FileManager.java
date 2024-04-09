@@ -242,4 +242,98 @@ public class FileManager
                     x.printStackTrace();
                 } 
     }
+    
+    public void fileSave(String name)
+    {
+        try
+        (
+            FileWriter newFile = new FileWriter(name);//give a name to the new file
+            BufferedWriter writer = new BufferedWriter(newFile); 
+        )
+        {
+            User user = User.getInstance();
+            Contact contact = Contact.getInstance();
+            
+            writer.write("Section,Sub-Section,Variants");
+            writer.newLine();
+            
+            writer.write("User,Name,");
+            for(int i = 0; i < user.getName().size();i++)
+            {
+                if(i == user.getName().size() - 1)
+                {
+                    writer.write(user.getName().get(i));
+                }
+                else
+                {
+                    writer.write(user.getName().get(i)+",");
+                }
+            }
+            
+            writer.newLine();
+            
+            writer.write("User,Title,");
+            for(int i = 0; i<user.getTitle().size();i++)
+            {
+                if(i == user.getTitle().size() - 1)
+                {
+                    writer.write(user.getTitle().get(i));
+                }
+                else
+                {
+                    writer.write(user.getTitle().get(i) + ",");
+                }
+            }
+            
+            writer.newLine();
+            
+            writer.write("User,Email,");
+            for(int i = 0; i<user.getEmail().size();i++)
+            {
+                if(i == user.getEmail().size()-1)
+                {
+                    writer.write(user.getEmail().get(i));
+                }
+                else
+                {
+                    writer.write(user.getEmail().get(i)+",");
+                }
+            }
+            
+            writer.newLine();
+            
+            writer.write("Contact Information,Phone,");
+            for(int i = 0 ; i<contact.getPhoneNumber().size();i++)
+            {
+                if(i==contact.getPhoneNumber().size()-1)
+                {
+                    writer.write(contact.getPhoneNumber().get(i));
+                }
+                else
+                {
+                    writer.write(contact.getPhoneNumber().get(i)+",");
+                }
+            }
+            
+            writer.newLine();
+            
+            writer.write("Contact Information,Address,");
+            for(int i = 0;i<contact.getAddress().size();i++)
+            {
+                if(i==contact.getAddress().size()-1)
+                {
+                    writer.write(contact.getAddress().get(i));
+                }
+                else
+                {
+                    writer.write(contact.getAddress().get(i)+",");
+                }
+            }
+        }
+        
+        catch(Exception x)
+        {
+            x.printStackTrace();
+        }
+    }
 }
