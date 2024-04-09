@@ -6,7 +6,7 @@ package cvbuilder.view;
 
 import cvbuilder.controller.FileManager;
 import cvbuilder.controller.FileMenuAction;
-import cvbuilder.controller.PanelBuilder;
+import cvbuilder.controller.panelBuilder;
 import java.awt.BorderLayout;
 import java.io.File;
 import javax.swing.JFrame;
@@ -279,7 +279,7 @@ public class MainViewer
         fileManager.classInitialiser(fileName);
         
         //building panels
-        PanelBuilder builder = new PanelBuilder();
+        panelBuilder builder = new panelBuilder();
         builder.panSetUp(titlePan, "title", fileName);
         builder.panSetUp(namePan, "name", fileName);
         builder.panSetUp(emailPan, "email", fileName);
