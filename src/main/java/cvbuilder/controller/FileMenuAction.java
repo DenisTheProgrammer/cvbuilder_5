@@ -24,7 +24,7 @@ public class FileMenuAction implements ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         if(e.getActionCommand().equals("open")) //test that all delete and edit work as intended, also test whether it still works when dummy file is moved inside the data folder :)
-        {
+        {//open currently has an issue where files inside a folder cannot be opened, have a look at this
             JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")); //opens a file chooser to the project directory
             int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
             if(open == 0) 
@@ -42,8 +42,6 @@ public class FileMenuAction implements ActionListener
                 
                 contact.getAddress().clear(); //clear the address arrayList
                 contact.getPhoneNumber().clear(); //clear the phone number arrayList
-                   
-                //System.out.println("The new array consists of " + uGroup.getUserGroup());
 
                 view.getTitlePan().removeAll();
                 view.getNamePan().removeAll();
@@ -69,11 +67,21 @@ public class FileMenuAction implements ActionListener
         {
             System.exit(0); //exits app
         }
-        else if (e.getActionCommand().equals("save")) //the file manager function for this needs to be finish to get this working
+        else if (e.getActionCommand().equals("save")) //have a look whether you can find a way to save the file directly inside the data folder
         {
             FileManager fileManager = new FileManager();
             String newFileName = JOptionPane.showInputDialog("Enter the name of your new file");//displays an input window
             fileManager.fileSave(newFileName);
+        }
+        else if(e.getActionCommand().equals("showCV"))
+        {
+            System.out.println("You are showing your CV");
+            //the logic to show the cv goes in here
+        }
+        else if(e.getActionCommand().equals("saveCV"))
+        {
+            System.out.println("you are saving your CV");
+            //the logic to save the cv goes here
         }
     }
     

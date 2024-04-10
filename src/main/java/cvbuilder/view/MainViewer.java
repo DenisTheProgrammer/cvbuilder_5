@@ -271,6 +271,12 @@ public class MainViewer
         quit.addActionListener(new FileMenuAction());
         quit.setActionCommand("quit");
         
+        showCV.addActionListener(new FileMenuAction());
+        showCV.setActionCommand("showCV");
+        
+        saveCV.addActionListener(new FileMenuAction());
+        saveCV.setActionCommand("saveCV");
+        
         appFrame.add(menu, BorderLayout.PAGE_START);
         
         //here is the file initiation for the view
