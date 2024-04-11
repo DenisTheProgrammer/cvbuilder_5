@@ -9,9 +9,11 @@ import cvbuilder.model.User;
 import cvbuilder.view.MainViewer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -19,7 +21,24 @@ import javax.swing.JOptionPane;
  */
 public class FileMenuAction implements ActionListener
 {
+    private ArrayList<JRadioButton> radButtons = new ArrayList<>(); //I will be using this to bring the reference to all radio buttons for the purpose of building the CV
 
+    //getters and setters
+    public ArrayList<JRadioButton> getRadButtons() {
+        return radButtons;
+    }
+
+    public void setRadButtons(ArrayList<JRadioButton> radButtons) {
+        this.radButtons = radButtons;
+    }
+    
+    
+    //constructor
+    public FileMenuAction(ArrayList<JRadioButton> radButtons)
+    {
+        this.radButtons = radButtons;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -84,6 +103,10 @@ public class FileMenuAction implements ActionListener
         }
         else if(e.getActionCommand().equals("showCV"))
         {
+            for(int i = 0; i<radButtons.size();i++)
+            {
+                System.out.println(radButtons.get(i));
+            }
             System.out.println("You are showing your CV");
             //the logic to show the cv goes in here
         }

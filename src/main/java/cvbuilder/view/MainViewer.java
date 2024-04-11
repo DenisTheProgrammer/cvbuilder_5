@@ -261,21 +261,6 @@ public class MainViewer
         cv.add(showCV);
         cv.add(saveCV);//add an action function and link both of these
         
-        open.addActionListener(new FileMenuAction());
-        open.setActionCommand("open");
-        
-        save.addActionListener(new FileMenuAction());
-        save.setActionCommand("save");
-        
-        quit.addActionListener(new FileMenuAction());
-        quit.setActionCommand("quit");
-        
-        showCV.addActionListener(new FileMenuAction());
-        showCV.setActionCommand("showCV");
-        
-        saveCV.addActionListener(new FileMenuAction());
-        saveCV.setActionCommand("saveCV");
-        
         appFrame.add(menu, BorderLayout.PAGE_START);
         
         //here is the file initiation for the view
@@ -285,12 +270,31 @@ public class MainViewer
         
         //building panels
         panelBuilder builder = new panelBuilder();
+        
         builder.panSetUp(titlePan, "title", fileName);
         builder.panSetUp(namePan, "name", fileName);
         builder.panSetUp(emailPan, "email", fileName);
         
         builder.panSetUp(phonePan, "phoneNumber", fileName);
         builder.panSetUp(addressPan, "address", fileName);
+        
+        //adding action listeners to all the menu with a reference to all the radio buttons available
+        FileMenuAction fileMenuAction = new FileMenuAction(builder.getRadButtons());
+        
+        open.addActionListener(fileMenuAction);
+        open.setActionCommand("open");
+        
+        save.addActionListener(fileMenuAction);
+        save.setActionCommand("save");
+        
+        quit.addActionListener(fileMenuAction);
+        quit.setActionCommand("quit");
+        
+        showCV.addActionListener(fileMenuAction);
+        showCV.setActionCommand("showCV");
+        
+        saveCV.addActionListener(fileMenuAction);
+        saveCV.setActionCommand("saveCV");
         
         
         //add tabs to the main tabs holder then to the frame and set layout

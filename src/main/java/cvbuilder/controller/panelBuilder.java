@@ -306,8 +306,7 @@ public class panelBuilder
                 FileManager fileManager = new FileManager();//create a new instance of our fresh class
                 fileManager.tempCreator(fileName, selButton.getText(), "", "delete");//this function modifies the temp file, removing the user deleted
                 fileManager.overwriterFromTemp(fileName);//this overwrites the file
-                
-                
+
                 User user = User.getInstance();
                 Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
                 
@@ -317,8 +316,7 @@ public class panelBuilder
                 
                 contact.getAddress().clear(); //clear the address arrayList
                 contact.getPhoneNumber().clear(); //clear the phone number arrayList
-                
-                
+
                 fileManager.classInitialiser(fileName);//create the new version of the arrayList
                 
                 MainViewer app = MainViewer.getInstance();
@@ -326,11 +324,6 @@ public class panelBuilder
                 int indexRad = getRadButtons().indexOf(selButton);
                 int indexPan = panelStorer.indexOf(panel);
                 panelStorer.get(indexPan).remove(butPanStorer.get(indexRad));
-                
-                for(int i = 0; i < panelStorer.size();i++)
-                {
-                    System.out.println(panelStorer.get(i));
-                }
                 
                 app.getUserTabs().revalidate();
                 app.getContactTabs().revalidate();
