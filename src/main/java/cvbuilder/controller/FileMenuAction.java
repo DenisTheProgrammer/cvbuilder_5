@@ -23,7 +23,7 @@ public class FileMenuAction implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getActionCommand().equals("open")) //test that all delete and edit work as intended
+        if(e.getActionCommand().equals("open"))
         {//finally test the open function on my laptop where the file path is correct to make sure the work around works
             JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")); //opens a file chooser to the project directory
             int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
@@ -61,7 +61,7 @@ public class FileMenuAction implements ActionListener
  
                 view.getAppFrame().revalidate();
                 view.getAppFrame().repaint();
-                int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5\\") + 12);//get the index for string manipulation
+                int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5") + 12);//get the index for string manipulation
                 String fileName = view.getOpenFile().getAbsolutePath().substring(indexToCut);//the file getter method only gets the file name and so gives error if the file is in a folder, this bypasses that
                 view.displayGUI(fileName);//re populate the view with new content
                     

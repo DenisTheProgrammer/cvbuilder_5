@@ -247,7 +247,7 @@ public class FileManager
     {
         try
         (
-            FileWriter newFile = new FileWriter(name);//give a name to the new file
+            FileWriter newFile = new FileWriter("savedFiles/" + name + ".csv");//give a name to the new file
             BufferedWriter writer = new BufferedWriter(newFile); 
         )
         {
