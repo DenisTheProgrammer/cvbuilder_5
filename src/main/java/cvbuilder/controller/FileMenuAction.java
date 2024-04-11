@@ -23,14 +23,14 @@ public class FileMenuAction implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getActionCommand().equals("open")) //test that all delete and edit work as intended, also test whether it still works when dummy file is moved inside the data folder :)
-        {//open currently has an issue where files inside a folder cannot be opened, have a look at this
+        if(e.getActionCommand().equals("open")) //test that all delete and edit work as intended
+        {//finally test the open function on my laptop where the file path is correct to make sure the work around works
             JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")); //opens a file chooser to the project directory
             int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
             if(open == 0) 
             {
                 MainViewer view = MainViewer.getInstance();
-                System.out.println(fileChooser.getSelectedFile());
+
                 view.setOpenFile(fileChooser.getSelectedFile());//gets the selected file and stores it
 
                 User user = User.getInstance();
@@ -61,7 +61,9 @@ public class FileMenuAction implements ActionListener
  
                 view.getAppFrame().revalidate();
                 view.getAppFrame().repaint();
-                view.displayGUI(view.getOpenFile().getName());//re populate the view with new content
+                int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5\\") + 12);//get the index for string manipulation
+                String fileName = view.getOpenFile().getAbsolutePath().substring(indexToCut);//the file getter method only gets the file name and so gives error if the file is in a folder, this bypasses that
+                view.displayGUI(fileName);//re populate the view with new content
                     
             }
             else
