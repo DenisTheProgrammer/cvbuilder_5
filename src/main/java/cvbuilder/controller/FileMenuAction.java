@@ -30,8 +30,8 @@ public class FileMenuAction implements ActionListener
             if(open == 0) 
             {
                 MainViewer view = MainViewer.getInstance();
+                System.out.println(fileChooser.getSelectedFile());
                 view.setOpenFile(fileChooser.getSelectedFile());//gets the selected file and stores it
-                //System.out.println(file);
 
                 User user = User.getInstance();
                 Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
@@ -43,6 +43,7 @@ public class FileMenuAction implements ActionListener
                 contact.getAddress().clear(); //clear the address arrayList
                 contact.getPhoneNumber().clear(); //clear the phone number arrayList
 
+                
                 view.getTitlePan().removeAll();
                 view.getNamePan().removeAll();
                 view.getEmailPan().removeAll();
@@ -51,7 +52,13 @@ public class FileMenuAction implements ActionListener
                 //view.getEndPan().removeAll(); - the bottom elements will also need to be removed for repainting when they get added
 
                 view.getAppFrame().getContentPane().removeAll();//remove all content from the view
-
+                
+                view.getOpen().removeActionListener(this);
+                view.getSave().removeActionListener(this);
+                view.getQuit().removeActionListener(this);
+                view.getShowCV().removeActionListener(this);
+                view.getSaveCV().removeActionListener(this);
+ 
                 view.getAppFrame().revalidate();
                 view.getAppFrame().repaint();
                 view.displayGUI(view.getOpenFile().getName());//re populate the view with new content

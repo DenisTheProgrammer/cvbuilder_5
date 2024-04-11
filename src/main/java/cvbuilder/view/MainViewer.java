@@ -244,7 +244,6 @@ public class MainViewer
         this.openFile = openFile;
     }
     
-    
     //methods
     public void displayGUI(String fileName)
     {
