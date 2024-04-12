@@ -101,26 +101,25 @@ public class FileMenuAction implements ActionListener
             String newFileName = JOptionPane.showInputDialog("Enter the name of your new file");//displays an input window
             fileManager.fileSave(newFileName);
         }
-        else if(e.getActionCommand().equals("showCV")) //need to make sure that when one radio button is selected the others de select
-        {
+        else if(e.getActionCommand().equals("showCV")) //need to make sure that when one radio button is selected the others de-select
+        { //next up checkbox needs to be sorted then look at sample UI and keep going :)
             User user = User.getInstance();
             Contact contact = Contact.getInstance();
-            
-            String title = "";
-            String name = "";
             
             for(int i = 0; i<radButtons.size();i++)
             {
                 if(radButtons.get(i).isSelected() == true)
                 {
                     user.findSelected(radButtons.get(i).getText());
-                    
+                    contact.findSelected(radButtons.get(i).getText());
                 }     
             }
             System.out.println("---------------------------------------------------");
             System.out.println("title: " + user.getSelectedTitle());
             System.out.println("name: " + user.getSelectedName());
             System.out.println("email: " + user.getSelectedEmail());
+            System.out.println("phone number: " + contact.getSelectedPhoneNumber());
+            System.out.println("address: " + contact.getSelectedAddress());
             System.out.println("---------------------------------------------------");
         }
         else if(e.getActionCommand().equals("saveCV"))
