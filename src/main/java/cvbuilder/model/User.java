@@ -17,6 +17,10 @@ public class User
     private ArrayList<String> name = new ArrayList<>();
     private ArrayList<String> email = new ArrayList<>();
     
+    private String selectedTitle = "Please select a title";
+    private String selectedName = "Please select a name";
+    private String selectedEmail = "Please select an email address";
+    
     //constructor and singleton
     private User(){}//disable constructor
     
@@ -59,6 +63,105 @@ public class User
     public void setEmail(ArrayList<String> email) 
     {
         this.email = email;
+    }
+
+    
+    
+    public String getSelectedTitle() {
+        return selectedTitle;
+    }
+
+    public void setSelectedTitle(String selectedTitle) {
+        this.selectedTitle = selectedTitle;
+    }
+
+    public String getSelectedName() {
+        return selectedName;
+    }
+
+    public void setSelectedName(String selectedName) {
+        this.selectedName = selectedName;
+    }
+
+    public String getSelectedEmail() {
+        return selectedEmail;
+    }
+
+    public void setSelectedEmail(String selectedEmail) {
+        this.selectedEmail = selectedEmail;
+    }
+    
+    
+    
+    
+    
+    //methods
+    public String findTitle(String title)
+    {
+        String result = "Please select a title";
+        for (int i = 0; i<getTitle().size();i++)
+        {
+            if(getTitle().get(i).trim().equals(title.trim()))
+            {
+                result = title;
+            }
+        }
+        return result;
+    }
+    
+    public String findName(String name)
+    {
+        String result = "Please select a name";
+        for (int i = 0; i<getName().size();i++)
+        {
+            if(getName().get(i).trim().equals(name.trim()))
+            {
+                result = name;
+            }
+        }
+        return result;
+    }
+    
+    public String findEmail(String email)
+    {
+        String result = "Please select an email address";
+        for(int i = 0; i<getEmail().size();i++)
+        {
+            if(getEmail().get(i).trim().equals(email.trim()))
+            {
+                result = email;
+            }
+        }
+        return result;
+    }
+    
+    public void findSelected(String selected)
+    {
+        //System.out.println("selected is " + selected);
+        
+         for (int i = 0; i<getTitle().size();i++)
+         {
+             if(getTitle().get(i).trim().equals(selected.trim()))
+             {
+                 setSelectedTitle(selected);
+             }
+         }
+         
+         for (int i = 0; i<getName().size();i++)
+         {
+             if(getName().get(i).trim().equals(selected.trim()))
+             {
+                 setSelectedName(selected);
+             }
+         }
+         
+         for(int i = 0; i<getEmail().size();i++)
+         {
+             if(getEmail().get(i).trim().equals(selected.trim()))
+             {
+                 setSelectedEmail(selected);
+             }
+         }
     }
     
     @Override

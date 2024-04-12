@@ -49,4 +49,5 @@ public class Contact
         this.address = address;
     }
     
+    //methods
 }
