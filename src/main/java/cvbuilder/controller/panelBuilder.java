@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -27,6 +28,7 @@ public class panelBuilder
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();//storing the reference to the radio buttons here, will be useful later
     private ArrayList<JPanel> butPanStorer = new ArrayList<>(); //storing the references of the button panels in here
     private ArrayList<JPanel> panelStorer = new ArrayList<>(); //storing the reference to each panel
+    private JCheckBox titleCheck = new JCheckBox("Include");
     
     //getters and setters
 
@@ -57,6 +59,14 @@ public class panelBuilder
     public void setPanelStorer(ArrayList<JPanel> panelStorer) {
         this.panelStorer = panelStorer;
     }
+
+    public JCheckBox getTitleCheck() {
+        return titleCheck;
+    }
+
+    public void setTitleCheck(JCheckBox titleCheck) {
+        this.titleCheck = titleCheck;
+    }
     
     
     //get instances of user and contact
@@ -78,7 +88,8 @@ public class panelBuilder
             butPanStorer.add(butPanel);//keep the reference of the panels
             JRadioButton selButton = null; //initiate the radio button
             if(menu.equals("title") && i < user.getTitle().size())
-            {
+            {//figure out how to make the checkbox display before the radButtons
+                butPanel.add(titleCheck);
                 selButton = new JRadioButton(String.valueOf(user.getTitle().get(i))); //new Radio Button per attribute
                 radButtons.add(selButton);
 
