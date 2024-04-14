@@ -13,6 +13,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -84,15 +85,18 @@ public class panelBuilder
         
         for(int i = 0; i < (user.getTitle().size() + user.getName().size() + user.getEmail().size() + contact.getPhoneNumber().size() + contact.getAddress().size());i++)
         {
+            JPanel boxPanel = new JPanel();
             JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
             butPanStorer.add(butPanel);//keep the reference of the panels
             JRadioButton selButton = null; //initiate the radio button
             if(menu.equals("title") && i < user.getTitle().size())
             {//figure out how to make the checkbox display before the radButtons
-                butPanel.add(titleCheck);
+                if (i==0)
+                {
+                    boxPanel.add(titleCheck);
+                }
                 selButton = new JRadioButton(String.valueOf(user.getTitle().get(i))); //new Radio Button per attribute
                 radButtons.add(selButton);
-
             }
             else if(menu.equals("name") && i < (user.getName().size() + user.getTitle().size()) && i > user.getTitle().size() - 1)
             {
@@ -134,6 +138,7 @@ public class panelBuilder
             butPanel.add(editButton);
             butPanel.add(deleteButton);//add all the buttons to the panel
 
+            panel.add(boxPanel,gbc);
             panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
             panelStorer.add(panel);
             
