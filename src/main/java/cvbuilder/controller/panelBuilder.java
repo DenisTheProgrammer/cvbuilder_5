@@ -29,7 +29,9 @@ public class panelBuilder
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();//storing the reference to the radio buttons here, will be useful later
     private ArrayList<JPanel> butPanStorer = new ArrayList<>(); //storing the references of the button panels in here
     private ArrayList<JPanel> panelStorer = new ArrayList<>(); //storing the reference to each panel
-    private JCheckBox titleCheck = new JCheckBox("Include");
+    
+    private JCheckBox titleCheck = new JCheckBox("Include");//create a checkbox for the title menu
+    private JCheckBox addressCheck = new JCheckBox("Include");//create a checkbox for the address menu
     
     //getters and setters
 
@@ -68,6 +70,15 @@ public class panelBuilder
     public void setTitleCheck(JCheckBox titleCheck) {
         this.titleCheck = titleCheck;
     }
+
+    public JCheckBox getAddressCheck() {
+        return addressCheck;
+    }
+
+    public void setAddressCheck(JCheckBox addressCheck) {
+        this.addressCheck = addressCheck;
+    }
+    
     
     
     //get instances of user and contact
@@ -85,7 +96,8 @@ public class panelBuilder
         
         for(int i = 0; i < (user.getTitle().size() + user.getName().size() + user.getEmail().size() + contact.getPhoneNumber().size() + contact.getAddress().size());i++)
         {
-            JPanel boxPanel = new JPanel();
+            JPanel titleBoxPanel = new JPanel();
+            JPanel addressBoxPanel = new JPanel();
             JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
             butPanStorer.add(butPanel);//keep the reference of the panels
             JRadioButton selButton = null; //initiate the radio button
@@ -93,7 +105,7 @@ public class panelBuilder
             {//figure out how to make the checkbox display before the radButtons
                 if (i==0)
                 {
-                    boxPanel.add(titleCheck);
+                    titleBoxPanel.add(titleCheck);
                 }
                 selButton = new JRadioButton(String.valueOf(user.getTitle().get(i))); //new Radio Button per attribute
                 radButtons.add(selButton);
@@ -115,6 +127,10 @@ public class panelBuilder
             }
             else if (menu.equals("address") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() + contact.getAddress().size()) && i > user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() - 1)
             {
+                if (i == user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size())
+                {
+                    addressBoxPanel.add(addressCheck);
+                }
                 selButton = new JRadioButton(contact.getAddress().get(i - (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
             }
@@ -138,7 +154,9 @@ public class panelBuilder
             butPanel.add(editButton);
             butPanel.add(deleteButton);//add all the buttons to the panel
 
-            panel.add(boxPanel,gbc);
+            
+            panel.add(titleBoxPanel,gbc);
+            panel.add(addressBoxPanel,gbc);
             panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
             panelStorer.add(panel);
             

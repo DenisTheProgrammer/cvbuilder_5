@@ -10,6 +10,7 @@ import cvbuilder.view.MainViewer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +23,8 @@ import javax.swing.JRadioButton;
 public class FileMenuAction implements ActionListener
 {
     private ArrayList<JRadioButton> radButtons = new ArrayList<>(); //I will be using this to bring the reference to all radio buttons for the purpose of building the CV
-
+    private JCheckBox titleCheck = new JCheckBox();
+    private JCheckBox addressCheck = new JCheckBox();
     //getters and setters
     public ArrayList<JRadioButton> getRadButtons() {
         return radButtons;
@@ -31,12 +33,29 @@ public class FileMenuAction implements ActionListener
     public void setRadButtons(ArrayList<JRadioButton> radButtons) {
         this.radButtons = radButtons;
     }
-    
+
+    public JCheckBox getTitleCheck() {
+        return titleCheck;
+    }
+
+    public void setTitleCheck(JCheckBox titleCheck) {
+        this.titleCheck = titleCheck;
+    }
+
+    public JCheckBox getAddressCheck() {
+        return addressCheck;
+    }
+
+    public void setAddressCheck(JCheckBox addressCheck) {
+        this.addressCheck = addressCheck;
+    }
     
     //constructor
-    public FileMenuAction(ArrayList<JRadioButton> radButtons)
+    public FileMenuAction(ArrayList<JRadioButton> radButtons, JCheckBox titleCheck, JCheckBox addressCheck)
     {
         this.radButtons = radButtons;
+        this.titleCheck = titleCheck;
+        this.addressCheck = addressCheck;
     }
     
     @Override
@@ -114,18 +133,27 @@ public class FileMenuAction implements ActionListener
                     contact.findSelected(radButtons.get(i).getText());
                 }     
             }
-            System.out.println("---------------------------------------------------");
-            System.out.println("title: " + user.getSelectedTitle());
+            System.out.println("---------------------------------------------------");           
+            if(titleCheck.isSelected() == true)
+            {
+                System.out.println("title: " + user.getSelectedTitle());
+            }
             System.out.println("name: " + user.getSelectedName());
             System.out.println("email: " + user.getSelectedEmail());
             System.out.println("phone number: " + contact.getSelectedPhoneNumber());
-            System.out.println("address: " + contact.getSelectedAddress());
+            if(addressCheck.isSelected() == true)
+            {
+                System.out.println("address: " + contact.getSelectedAddress());
+            }
             System.out.println("---------------------------------------------------");
         }
         else if(e.getActionCommand().equals("saveCV"))
         {
             System.out.println("you are saving your CV");
             //the logic to save the cv goes here
+            //most likely will need a new file manager function which takes the checkboxes as parameters and writes a new file 
+            //using the checkboxes to know whether to include the elements mentioned, as well as maybe the same logic needs to be run
+            //as the show then the results need to be placed as parameters to the new function so that they can be written to the file
         }
     }
     

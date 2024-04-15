@@ -279,7 +279,7 @@ public class MainViewer
         builder.panSetUp(addressPan, "address", fileName);
         
         //adding action listeners to all the menu with a reference to all the radio buttons available
-        FileMenuAction fileMenuAction = new FileMenuAction(builder.getRadButtons());
+        FileMenuAction fileMenuAction = new FileMenuAction(builder.getRadButtons(), builder.getTitleCheck(), builder.getAddressCheck());
         
         open.addActionListener(fileMenuAction);
         open.setActionCommand("open");
