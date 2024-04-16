@@ -92,8 +92,6 @@ public class User
     //methods 
     public void findSelected(String selected)
     {
-        //System.out.println("selected is " + selected);
-        
          for (int i = 0; i<getTitle().size();i++)
          {
              if(getTitle().get(i).trim().equals(selected.trim()))

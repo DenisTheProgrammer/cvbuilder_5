@@ -23,8 +23,8 @@ import javax.swing.JRadioButton;
 public class FileMenuAction implements ActionListener
 {
     private ArrayList<JRadioButton> radButtons = new ArrayList<>(); //I will be using this to bring the reference to all radio buttons for the purpose of building the CV
-    private JCheckBox titleCheck = new JCheckBox();
-    private JCheckBox addressCheck = new JCheckBox();
+    private JCheckBox titleCheck = new JCheckBox();//using this to bring the title check box here to get its status
+    private JCheckBox addressCheck = new JCheckBox();//using this to bring the address check box here to get its status
     //getters and setters
     public ArrayList<JRadioButton> getRadButtons() {
         return radButtons;
@@ -114,23 +114,23 @@ public class FileMenuAction implements ActionListener
         {
             System.exit(0); //exits app
         }
-        else if (e.getActionCommand().equals("save")) //have a look whether you can find a way to save the file directly inside the data folder
+        else if (e.getActionCommand().equals("save"))
         {
             FileManager fileManager = new FileManager();
             String newFileName = JOptionPane.showInputDialog("Enter the name of your new file");//displays an input window
             fileManager.fileSave(newFileName);
         }
         else if(e.getActionCommand().equals("showCV")) //need to make sure that when one radio button is selected the others de-select
-        { //next up checkbox needs to be sorted then look at sample UI and keep going :)
+        { 
             User user = User.getInstance();
             Contact contact = Contact.getInstance();
             
-            for(int i = 0; i<radButtons.size();i++)
+            for(int i = 0; i<radButtons.size();i++)//loop through the arraylist containing the reference to all radio buttons
             {
-                if(radButtons.get(i).isSelected() == true)
+                if(radButtons.get(i).isSelected() == true)//check if the radio button is selected
                 {
                     user.findSelected(radButtons.get(i).getText());
-                    contact.findSelected(radButtons.get(i).getText());
+                    contact.findSelected(radButtons.get(i).getText());//if so run the function which cheks whether the selected radio button is part of the mofel and prints it
                 }     
             }
             System.out.println("---------------------------------------------------");           
@@ -149,11 +149,9 @@ public class FileMenuAction implements ActionListener
         }
         else if(e.getActionCommand().equals("saveCV"))
         {
-            System.out.println("you are saving your CV");
-            //the logic to save the cv goes here
-            //most likely will need a new file manager function which takes the checkboxes as parameters and writes a new file 
-            //using the checkboxes to know whether to include the elements mentioned, as well as maybe the same logic needs to be run
-            //as the show then the results need to be placed as parameters to the new function so that they can be written to the file
+            FileManager fileManager = new FileManager();
+            String newFileName = JOptionPane.showInputDialog("Enter the name of your new CV");//displays an input window for the name of the new cv
+            fileManager.cvSave(newFileName, radButtons, titleCheck, addressCheck);
         }
     }
     

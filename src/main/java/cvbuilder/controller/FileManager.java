@@ -11,6 +11,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -336,4 +339,70 @@ public class FileManager
             x.printStackTrace();
         }
     }
-}
+    
+    public void cvSave(String name, ArrayList<JRadioButton> radButtons, JCheckBox titleCheck, JCheckBox addressCheck)
+    {
+        User user = User.getInstance();
+        Contact contact = Contact.getInstance();
+        for(int i = 0; i<radButtons.size();i++)//loop through the arraylist containing the reference to all radio buttons
+        {
+            if(radButtons.get(i).isSelected() == true)//check if the radio button is selected
+            {
+                user.findSelected(radButtons.get(i).getText());
+                contact.findSelected(radButtons.get(i).getText());//if so run the function which cheks whether the selected radio button is part of the mofel and prints it
+            }     
+        }
+           
+        if(titleCheck.isSelected() == true && user.getSelectedTitle().equals("Please select a title"))
+        {
+            JOptionPane.showMessageDialog(null, "Please select a title", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(user.getSelectedName().equals("Please select a name"))
+        {
+            JOptionPane.showMessageDialog(null, "Please select a name", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(user.getSelectedEmail().equals("Please select an email address"))
+        {
+            JOptionPane.showMessageDialog(null, "Please select an email address", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(contact.getSelectedPhoneNumber().equals("Please select a phone number"))
+        {
+            JOptionPane.showMessageDialog(null, "Please select a phone number", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(addressCheck.isSelected() == true && contact.getSelectedAddress().equals("Please select an address"))
+        {
+            JOptionPane.showMessageDialog(null, "Please select an address", "Error", JOptionPane.WARNING_MESSAGE);
+
+        }
+        else
+        {
+            try
+            (
+             FileWriter newFile = new FileWriter("savedCVs/" + name + ".csv");//give a name to the new file
+             BufferedWriter writer = new BufferedWriter(newFile); 
+                )
+            {
+                if(titleCheck.isSelected() == true)
+                {
+                   writer.write("title: " + user.getSelectedTitle()); 
+                   writer.newLine();
+                }
+                writer.write("name: " + user.getSelectedName());
+                writer.newLine();
+                writer.write("email: " + user.getSelectedEmail());
+                writer.newLine();
+                writer.write("phone number: " + contact.getSelectedPhoneNumber());
+                writer.newLine();
+                if(addressCheck.isSelected() == true)
+                {
+                    writer.write("address: " + contact.getSelectedAddress());
+                }
+            }
+            catch(Exception x)
+            {
+                x.printStackTrace();
+            }
+        }
+    }
+ }
+
