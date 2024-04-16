@@ -13,12 +13,14 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 /**
  *
@@ -95,9 +97,13 @@ public class panelBuilder
     
     
     //methods
-    public void panSetUp(JPanel panel, String menu, String fileName)
+    public void panSetUp(JPanel panel, String menu, String fileName, String name)
     {
         panel.setLayout(new GridBagLayout());
+        
+        Border border = BorderFactory.createTitledBorder(name);
+        panel.setBorder(border);//this is how you set a titled border and add it to a panel
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -382,12 +388,12 @@ public class panelBuilder
                 app.getAddressPan().removeAll();//clear the content of all panels
                 
                 panelBuilder builder = new panelBuilder();
-                builder.panSetUp(app.getTitlePan(), "title", openFileName);
-                builder.panSetUp(app.getNamePan(), "name", openFileName);
-                builder.panSetUp(app.getEmailPan(), "email", openFileName);
+                builder.panSetUp(app.getTitlePan(), "title", fileName, "Title");
+                builder.panSetUp(app.getNamePan(), "name", fileName, "Name");
+                builder.panSetUp(app.getEmailPan(), "email", fileName, "Email");
 
-                builder.panSetUp(app.getPhonePan(), "phoneNumber", openFileName);
-                builder.panSetUp(app.getAddressPan(), "address", openFileName);//re build panels
+                builder.panSetUp(app.getPhonePan(), "phoneNumber", fileName, "Phone ");
+                builder.panSetUp(app.getAddressPan(), "address", fileName, "Address");
                 
                 app.getUserTabs().revalidate();
                 app.getContactTabs().revalidate();

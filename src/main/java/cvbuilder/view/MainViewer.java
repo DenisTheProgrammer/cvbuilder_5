@@ -284,12 +284,12 @@ public class MainViewer
         //building panels
         panelBuilder builder = new panelBuilder();
         
-        builder.panSetUp(titlePan, "title", fileName);
-        builder.panSetUp(namePan, "name", fileName);
-        builder.panSetUp(emailPan, "email", fileName);
+        builder.panSetUp(titlePan, "title", fileName, "Title");
+        builder.panSetUp(namePan, "name", fileName, "Name");
+        builder.panSetUp(emailPan, "email", fileName, "Email");
         
-        builder.panSetUp(phonePan, "phoneNumber", fileName);
-        builder.panSetUp(addressPan, "address", fileName);
+        builder.panSetUp(phonePan, "phoneNumber", fileName, "Phone");
+        builder.panSetUp(addressPan, "address", fileName, "Address");
         
         //adding action listeners to all the menu with a reference to all the radio buttons available
         FileMenuAction fileMenuAction = new FileMenuAction(builder.getRadButtons(), builder.getTitleCheck(), builder.getAddressCheck());
