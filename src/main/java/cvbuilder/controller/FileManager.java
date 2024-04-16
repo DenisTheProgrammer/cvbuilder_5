@@ -404,5 +404,129 @@ public class FileManager
             }
         }
     }
+    
+    public void addToTemp(String fileName, String input, String id)
+    {
+        try //this will be used to create a new temporary file where the modified content is written
+                (
+                    FileReader file = new FileReader(fileName);
+                    BufferedReader b = new BufferedReader(file); //initialise file and buffered reader
+                    FileWriter myFile = new FileWriter("data/temp.csv");
+                    BufferedWriter writer = new BufferedWriter(myFile);
+                )
+                {    
+                    String line;
+                    int lineCounter = 0;
+   
+                   while ((line = b.readLine()) != null)
+                    {
+                        lineCounter ++;
+                        if(!(lineCounter==1))
+                        {
+                            writer.newLine();
+                        }
+                        String[] words = line.split(",");
+                        for(int i = 0; i < words.length; i ++)
+                        {
+                            String filterWords = words[i].replaceAll("%", " ").replaceAll("/", " ");
+                            if(lineCounter == 1)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                            }
+                            else if(lineCounter == 3)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                                
+                                if(id.equals("title")&& i == words.length - 1)
+                                {
+                                    writer.write("," + input);
+                                }
+                            }
+                            else if(lineCounter == 2)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                                
+                                if(id.equals("name")&& i == words.length - 1)
+                                {
+                                    writer.write("," + input);
+                                } 
+                            }
+                            else if(lineCounter == 4)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                                
+                                if(id.equals("email")&& i == words.length - 1)
+                                {
+                                    writer.write("," + input);
+                                }
+                            }
+                            else if(lineCounter == 5)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                                
+                                if(id.equals("phoneNumber")&& i == words.length - 1)
+                                {
+                                    writer.write("," + input);
+                                }
+                            }
+                            else if(lineCounter == 6)
+                            {
+                                if(i == words.length - 1)
+                                {
+                                    writer.write(filterWords); 
+                                }
+                                else
+                                {
+                                   writer.write(filterWords+","); 
+                                }
+                                
+                                if(id.equals("address")&& i == words.length - 1)
+                                {
+                                    writer.write("," + input);
+                                }
+                            }
+                        }
+                    }
+                }
+        catch(Exception x)
+        {
+            x.printStackTrace();
+        }
+    }
  }
 

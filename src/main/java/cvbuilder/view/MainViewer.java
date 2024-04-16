@@ -317,7 +317,7 @@ public class MainViewer
         openFile = new File(fileName);
         
         //set the frame - always do this at the end
-        appFrame.setSize(800, 500);
+        appFrame.setSize(900, 600);
         appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         appFrame.setVisible(true);
     }

@@ -13,12 +13,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -29,6 +29,7 @@ public class panelBuilder
     private ArrayList<JRadioButton> radButtons = new ArrayList<>();//storing the reference to the radio buttons here, will be useful later
     private ArrayList<JPanel> butPanStorer = new ArrayList<>(); //storing the references of the button panels in here
     private ArrayList<JPanel> panelStorer = new ArrayList<>(); //storing the reference to each panel
+    private ArrayList<JTextField> inputStorer = new ArrayList<>();//storing the reference to the input fields
     
     private JCheckBox titleCheck = new JCheckBox("Include");//create a checkbox for the title menu
     private JCheckBox addressCheck = new JCheckBox("Include");//create a checkbox for the address menu
@@ -78,7 +79,14 @@ public class panelBuilder
     public void setAddressCheck(JCheckBox addressCheck) {
         this.addressCheck = addressCheck;
     }
-    
+
+    public ArrayList<JTextField> getInputStorer() {
+        return inputStorer;
+    }
+
+    public void setInputStorer(ArrayList<JTextField> inputStorer) {
+        this.inputStorer = inputStorer;
+    }
     
     
     //get instances of user and contact
@@ -98,9 +106,11 @@ public class panelBuilder
         {
             JPanel titleBoxPanel = new JPanel();
             JPanel addressBoxPanel = new JPanel();
+            JPanel inputPanel = new JPanel();
             JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
             butPanStorer.add(butPanel);//keep the reference of the panels
             JRadioButton selButton = null; //initiate the radio button
+            JTextField textInput = null; //initialise the input field
             if(menu.equals("title") && i < user.getTitle().size())
             {//figure out how to make the checkbox display before the radButtons
                 if (i==0)
@@ -109,21 +119,61 @@ public class panelBuilder
                 }
                 selButton = new JRadioButton(String.valueOf(user.getTitle().get(i))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                if(i == user.getTitle().size() - 1)
+                {
+                    textInput = new JTextField(10); //create a new input field
+                    inputStorer.add(textInput);
+                    JButton addButton = new JButton("Add");
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"title"));
+                    addButton.setActionCommand("add");
+                    inputPanel.add(textInput);
+                    inputPanel.add(addButton);
+                }
             }
             else if(menu.equals("name") && i < (user.getName().size() + user.getTitle().size()) && i > user.getTitle().size() - 1)
             {
                 selButton = new JRadioButton(user.getName().get(i - user.getTitle().size())); //new Radio Button per attribute
                 radButtons.add(selButton);
+                if(i == (user.getName().size() + user.getTitle().size()) - 1)
+                {
+                    textInput = new JTextField(10); //create a new input field
+                    inputStorer.add(textInput);
+                    JButton addButton = new JButton("Add");
+                    addButton.setActionCommand("add");
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"name"));
+                    inputPanel.add(textInput);
+                    inputPanel.add(addButton);
+                }
             }
             else if(menu.equals("email") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size()) && i > user.getName().size() + user.getTitle().size() - 1)
             {
                 selButton = new JRadioButton(user.getEmail().get(i - (user.getName().size() + user.getTitle().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size()) - 1)
+                {
+                    textInput = new JTextField(10); //create a new input field
+                    inputStorer.add(textInput);
+                    JButton addButton = new JButton("Add");
+                    addButton.setActionCommand("add");
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"email"));
+                    inputPanel.add(textInput);
+                    inputPanel.add(addButton);
+                }
             } 
             else if (menu.equals("phoneNumber") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()) && i > user.getEmail().size() + user.getName().size() + user.getTitle().size() - 1)
             {
                 selButton = new JRadioButton(contact.getPhoneNumber().get(i - (user.getEmail().size() + user.getName().size() + user.getTitle().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()) - 1)
+                {
+                    textInput = new JTextField(10); //create a new input field
+                    inputStorer.add(textInput);
+                    JButton addButton = new JButton("Add");
+                    addButton.setActionCommand("add");
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"phoneNumber"));
+                    inputPanel.add(textInput);
+                    inputPanel.add(addButton);
+                }
             }
             else if (menu.equals("address") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() + contact.getAddress().size()) && i > user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() - 1)
             {
@@ -133,6 +183,16 @@ public class panelBuilder
                 }
                 selButton = new JRadioButton(contact.getAddress().get(i - (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() + contact.getAddress().size()) - 1)
+                {
+                    textInput = new JTextField(10); //create a new input field
+                    inputStorer.add(textInput);
+                    JButton addButton = new JButton("Add");
+                    addButton.setActionCommand("add");
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"address"));
+                    inputPanel.add(textInput);
+                    inputPanel.add(addButton);
+                }
             }
             else
             {
@@ -144,10 +204,10 @@ public class panelBuilder
             JButton editButton = new JButton("Edit"); //creating the edit button
             JButton deleteButton = new JButton("Delete"); //creating the delete button
             
-            editButton.addActionListener(new radListener(selButton, fileName, panel));//link the button to the class for functionality
+            editButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,""));//link the button to the class for functionality
             editButton.setActionCommand("edit"); //set the name of the action command
             
-            deleteButton.addActionListener(new radListener(selButton, fileName, panel));//link the button to the class
+            deleteButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,""));//link the button to the class
             deleteButton.setActionCommand("delete");//set the name of the action command
 
             butPanel.add(selButton);
@@ -158,112 +218,10 @@ public class panelBuilder
             panel.add(titleBoxPanel,gbc);
             panel.add(addressBoxPanel,gbc);
             panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
+            panel.add(inputPanel, gbc);
             panelStorer.add(panel);
             
         }
-        
-        //have a look at refactoring this when brain is fresh
-        
-        /*if(menu.equals("title"))
-        {
-            for(int i = 0; i < user.getTitle().size(); i++)
-            {
-                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
-                butPanStorer.add(butPanel);//keep the reference of the panels
-                
-                JRadioButton selButton = new JRadioButton(user.getTitle().get(i)); //new Radio Button per attribute
-                radButtons.add(selButton);
-                
-                JButton editButton = new JButton("Edit");
-                JButton deleteButton = new JButton("Delete");
-                
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(deleteButton);//add all the buttons to the panel
-                
-                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            }
-        }
-        else if(menu.equals("name"))
-        {
-            for(int i = 0; i < user.getName().size(); i++)
-            {
-                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
-                butPanStorer.add(butPanel);//keep the reference of the panels
-                
-                JRadioButton selButton = new JRadioButton(user.getName().get(i)); //new Radio Button per attribute
-                radButtons.add(selButton);
-                
-                JButton editButton = new JButton("Edit");
-                JButton deleteButton = new JButton("Delete");
-                
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(deleteButton);//add all the buttons to the panel
-                
-                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            }
-        }
-        else if(menu.equals("email"))
-        {
-            for(int i = 0; i < user.getEmail().size(); i++)
-            {
-                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
-                butPanStorer.add(butPanel);//keep the reference of the panels
-                
-                JRadioButton selButton = new JRadioButton(user.getEmail().get(i)); //new Radio Button per attribute
-                radButtons.add(selButton);
-                
-                JButton editButton = new JButton("Edit");
-                JButton deleteButton = new JButton("Delete");
-                
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(deleteButton);//add all the buttons to the panel
-                
-                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            }
-        } 
-        else if (menu.equals("phoneNumber"))
-        {
-            for(int i = 0; i < contact.getPhoneNumber().size(); i++)
-            {
-                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
-                butPanStorer.add(butPanel);//keep the reference of the panels
-                
-                JRadioButton selButton = new JRadioButton(contact.getPhoneNumber().get(i)); //new Radio Button per attribute
-                radButtons.add(selButton);
-                
-                JButton editButton = new JButton("Edit");
-                JButton deleteButton = new JButton("Delete");
-                
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(deleteButton);//add all the buttons to the panel
-                
-                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            }
-        }
-        else if (menu.equals("address"))
-        {
-            for(int i = 0; i < contact.getAddress().size(); i++)
-            {
-                JPanel butPanel = new JPanel();//create a new panel to store each set of buttons
-                butPanStorer.add(butPanel);//keep the reference of the panels
-                
-                JRadioButton selButton = new JRadioButton(contact.getAddress().get(i)); //new Radio Button per attribute
-                radButtons.add(selButton);
-                
-                JButton editButton = new JButton("Edit");
-                JButton deleteButton = new JButton("Delete");
-                
-                butPanel.add(selButton);
-                butPanel.add(editButton);
-                butPanel.add(deleteButton);//add all the buttons to the panel
-                
-                panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            }
-        }*/
     }
     
     private class radListener implements ActionListener
@@ -271,6 +229,8 @@ public class panelBuilder
         private JRadioButton selButton;
         private String fileName;
         private JPanel panel;
+        private ArrayList<JTextField> inputStorer = new ArrayList<>();
+        private String id;
 
         //getters and setters
         public String getFileName() {
@@ -296,14 +256,23 @@ public class panelBuilder
         public void setPanel(JPanel panel) {
             this.panel = panel;
         }
-        
+
+        public ArrayList<JTextField> getInputStorer() {
+            return inputStorer;
+        }
+
+        public void setInputStorer(ArrayList<JTextField> inputStorer) {
+            this.inputStorer = inputStorer;
+        }
         
         //constructor
-        public radListener(JRadioButton selButton, String fileName, JPanel panel)//constructor that takes a parameter, see edit button
+        public radListener(JRadioButton selButton, String fileName, JPanel panel, ArrayList<JTextField> inputStorer, String id)//constructor that takes a parameter, see edit button
         {
             this.selButton = selButton;
             this.fileName = fileName;
             this.panel = panel;
+            this.inputStorer = inputStorer;
+            this.id = id;
         }
         
         //methods
@@ -364,6 +333,67 @@ public class panelBuilder
                 
                 app.getUserTabs().repaint(); 
                 app.getContactTabs().repaint();
+            }
+            else if(e.getActionCommand().equals("add"))
+            {
+                MainViewer view = MainViewer.getInstance();
+                for(int i = 0; i<inputStorer.size();i++)
+                {
+                    if(!(inputStorer.get(i).getText().trim().equals("")))
+                    {
+                        FileManager fileManager = new FileManager();
+                        int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5") + 12);//get the index for string manipulation
+                        String openFileName = view.getOpenFile().getAbsolutePath().substring(indexToCut);
+                        fileManager.addToTemp(openFileName, inputStorer.get(i).getText().trim(), id);
+                        fileManager.overwriterFromTemp(openFileName);
+                        inputStorer.get(i).setText("");
+                        break;
+                    }
+                    else if(i == inputStorer.size()-1)
+                    {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid value in the field", "Error", JOptionPane.WARNING_MESSAGE);
+                        break;
+                    }
+                }
+                
+                User user = User.getInstance();
+                Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
+                
+                user.getTitle().clear(); //clear the title arrayList
+                user.getName().clear(); //clear the name arrayList
+                user.getEmail().clear(); //clear the email arrayList
+                
+                contact.getAddress().clear(); //clear the address arrayList
+                contact.getPhoneNumber().clear(); //clear the phone number arrayList
+
+                FileManager fileManager = new FileManager();
+                fileManager.classInitialiser(fileName);//create the new version of the model
+                
+                MainViewer app = MainViewer.getInstance();
+                
+                int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5") + 12);//get the index for string manipulation
+                String openFileName = view.getOpenFile().getAbsolutePath().substring(indexToCut);//the file getter method only gets the file name and so gives error if the file is in a folder, this bypasses that
+                
+                app.getTitlePan().removeAll();
+                app.getNamePan().removeAll();
+                app.getEmailPan().removeAll();
+                
+                app.getPhonePan().removeAll();
+                app.getAddressPan().removeAll();//clear the content of all panels
+                
+                panelBuilder builder = new panelBuilder();
+                builder.panSetUp(app.getTitlePan(), "title", openFileName);
+                builder.panSetUp(app.getNamePan(), "name", openFileName);
+                builder.panSetUp(app.getEmailPan(), "email", openFileName);
+
+                builder.panSetUp(app.getPhonePan(), "phoneNumber", openFileName);
+                builder.panSetUp(app.getAddressPan(), "address", openFileName);//re build panels
+                
+                app.getUserTabs().revalidate();
+                app.getContactTabs().revalidate();
+                
+                app.getUserTabs().repaint(); 
+                app.getContactTabs().repaint();//revalidate and repaint to show all changes to user
             }
         }
         
