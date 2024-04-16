@@ -6,9 +6,11 @@ package cvbuilder.view;
 
 import cvbuilder.controller.FileManager;
 import cvbuilder.controller.FileMenuAction;
+import cvbuilder.controller.SectionSelector;
 import cvbuilder.controller.panelBuilder;
 import java.awt.BorderLayout;
 import java.io.File;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,6 +37,7 @@ public class MainViewer
     private JPanel emailPan = new JPanel();
     private JPanel phonePan = new JPanel();
     private JPanel addressPan = new JPanel();
+    private JPanel endPan = new JPanel();
     
     private JMenuBar menu = new JMenuBar();
     private JMenu file = new JMenu("File");
@@ -243,6 +246,16 @@ public class MainViewer
     public void setOpenFile(File openFile) {
         this.openFile = openFile;
     }
+
+    public JPanel getEndPan() {
+        return endPan;
+    }
+
+    public void setEndPan(JPanel endPan) {
+        this.endPan = endPan;
+    }
+    
+    
     
     //methods
     public void displayGUI(String fileName)
@@ -313,6 +326,21 @@ public class MainViewer
         contactPan.add(contactTabs);
         contactTabs.addTab("Phone", phonePan);
         contactTabs.addTab("Address", addressPan);
+        
+        //get the buttons at the bottom of the page and add them
+        
+        JButton prevSection = new JButton("Prev Section");
+        JButton nextSection = new JButton("Next Section");//create the previous and next buttons
+        
+        prevSection.addActionListener(new SectionSelector());
+        nextSection.addActionListener(new SectionSelector());
+        
+        prevSection.setActionCommand("previous");
+        nextSection.setActionCommand("next");
+        
+        endPan.add(prevSection);
+        endPan.add(nextSection);//add buttons to their panel
+        appFrame.add(endPan, BorderLayout.PAGE_END);
         
         openFile = new File(fileName);
         
