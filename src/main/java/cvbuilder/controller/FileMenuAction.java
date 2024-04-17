@@ -118,7 +118,18 @@ public class FileMenuAction implements ActionListener
         {
             FileManager fileManager = new FileManager();
             String newFileName = JOptionPane.showInputDialog("Enter the name of your new file");//displays an input window
-            fileManager.fileSave(newFileName);
+            if(newFileName == null)
+            {
+                System.out.println("File save cancelled");
+            }
+            else if(newFileName.trim().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid name in the field", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+                fileManager.fileSave(newFileName); 
+            }
         }
         else if(e.getActionCommand().equals("showCV")) //need to make sure that when one radio button is selected the others de-select
         { 
@@ -151,7 +162,19 @@ public class FileMenuAction implements ActionListener
         {
             FileManager fileManager = new FileManager();
             String newFileName = JOptionPane.showInputDialog("Enter the name of your new CV");//displays an input window for the name of the new cv
-            fileManager.cvSave(newFileName, radButtons, titleCheck, addressCheck);
+            if(newFileName == null)
+            {
+                System.out.println("File save cancelled");
+            }
+            else if(newFileName.trim().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid name in the field", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+                fileManager.cvSave(newFileName, radButtons, titleCheck, addressCheck);
+            }
+            
         }
     }
     

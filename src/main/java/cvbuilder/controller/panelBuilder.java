@@ -345,22 +345,34 @@ public class panelBuilder
                                                                                                           //and displays the existing radio text
                 //System.out.println(input);
                 FileManager fileManager = new FileManager();
-                fileManager.tempCreator(fileName, input, selButton.getText(),"modify"); //this function writes to the temporary file
-                fileManager.overwriterFromTemp(fileName);
+                if(input == null)
+                {
+                    System.out.println("Edit cancelled");
+                }
+                else if(input.trim().equals(""))
+                {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid edit value in the field", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+                else
+                {
+                    fileManager.tempCreator(fileName, input, selButton.getText(),"modify"); //this function writes to the temporary file
+                    fileManager.overwriterFromTemp(fileName);
 
-                selButton.setText(input);
+                    selButton.setText(input);
+
+                    User user = User.getInstance();
+                    Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
+
+                    user.getTitle().clear(); //clear the title arrayList
+                    user.getName().clear(); //clear the name arrayList
+                    user.getEmail().clear(); //clear the email arrayList
+
+                    contact.getAddress().clear(); //clear the address arrayList
+                    contact.getPhoneNumber().clear(); //clear the phone number arrayList
+
+                    fileManager.classInitialiser(fileName); //we re initialise to keep the model in step with our view
+                }
                 
-                User user = User.getInstance();
-                Contact contact = Contact.getInstance();//we get the instances of our model, ready to clear their attributes for re initialisation
-                
-                user.getTitle().clear(); //clear the title arrayList
-                user.getName().clear(); //clear the name arrayList
-                user.getEmail().clear(); //clear the email arrayList
-                
-                contact.getAddress().clear(); //clear the address arrayList
-                contact.getPhoneNumber().clear(); //clear the phone number arrayList
-                
-                fileManager.classInitialiser(fileName); //we re initialise to keep the model in step with our view
             }
             else if(e.getActionCommand().equalsIgnoreCase("delete")) //handles the delete button
             {
