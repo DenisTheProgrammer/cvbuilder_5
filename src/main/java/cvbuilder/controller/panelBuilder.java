@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -35,6 +36,12 @@ public class panelBuilder
     
     private JCheckBox titleCheck = new JCheckBox("Include");//create a checkbox for the title menu
     private JCheckBox addressCheck = new JCheckBox("Include");//create a checkbox for the address menu
+    
+    ButtonGroup titleRad = new ButtonGroup();
+    ButtonGroup nameRad = new ButtonGroup();
+    ButtonGroup emailRad = new ButtonGroup();
+    ButtonGroup phoneRad = new ButtonGroup();
+    ButtonGroup addressRad = new ButtonGroup();//create button groups to ensure only 1 radio button can be selected at a time
     
     //getters and setters
 
@@ -89,6 +96,46 @@ public class panelBuilder
     public void setInputStorer(ArrayList<JTextField> inputStorer) {
         this.inputStorer = inputStorer;
     }
+
+    public ButtonGroup getTitleRad() {
+        return titleRad;
+    }
+
+    public void setTitleRad(ButtonGroup titleRad) {
+        this.titleRad = titleRad;
+    }
+
+    public ButtonGroup getNameRad() {
+        return nameRad;
+    }
+
+    public void setNameRad(ButtonGroup nameRad) {
+        this.nameRad = nameRad;
+    }
+
+    public ButtonGroup getEmailRad() {
+        return emailRad;
+    }
+
+    public void setEmailRad(ButtonGroup emailRad) {
+        this.emailRad = emailRad;
+    }
+
+    public ButtonGroup getPhoneRad() {
+        return phoneRad;
+    }
+
+    public void setPhoneRad(ButtonGroup phoneRad) {
+        this.phoneRad = phoneRad;
+    }
+
+    public ButtonGroup getAddressRad() {
+        return addressRad;
+    }
+
+    public void setAddressRad(ButtonGroup addressRad) {
+        this.addressRad = addressRad;
+    }
     
     
     //get instances of user and contact
@@ -99,17 +146,17 @@ public class panelBuilder
     //methods
     public void panSetUp(JPanel panel, String menu, String fileName, String name)
     {
-        panel.setLayout(new GridBagLayout());
+        panel.setLayout(new GridBagLayout());//set the layout of the panel
         
-        Border border = BorderFactory.createTitledBorder(name);
-        panel.setBorder(border);//this is how you set a titled border and add it to a panel
+        Border border = BorderFactory.createTitledBorder(name);//create a border
+        panel.setBorder(border);//add the border to the panel
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);//these constraints help to try spacing and making the layout of the buttons on the app look somewhat good
         
         for(int i = 0; i < (user.getTitle().size() + user.getName().size() + user.getEmail().size() + contact.getPhoneNumber().size() + contact.getAddress().size());i++)
-        {
+        {//this for loop goes through everything inside all arrayLists of the model
             JPanel titleBoxPanel = new JPanel();
             JPanel addressBoxPanel = new JPanel();
             JPanel inputPanel = new JPanel();
@@ -118,43 +165,46 @@ public class panelBuilder
             JRadioButton selButton = null; //initiate the radio button
             JTextField textInput = null; //initialise the input field
             if(menu.equals("title") && i < user.getTitle().size())
-            {//figure out how to make the checkbox display before the radButtons
-                if (i==0)
+            {
+                if (i==0) //this statement makse sure the checkbox is added above all radio buttons
                 {
                     titleBoxPanel.add(titleCheck);
                 }
                 selButton = new JRadioButton(String.valueOf(user.getTitle().get(i))); //new Radio Button per attribute
-                radButtons.add(selButton);
-                if(i == user.getTitle().size() - 1)
+                radButtons.add(selButton);//store the reference of the radio buttons
+                titleRad.add(selButton);//add the radio buttons to a group to make sure only 1 can be selected at a time
+                if(i == user.getTitle().size() - 1)//this statement adds the input field to add new elements at the end of the page
                 {
                     textInput = new JTextField(10); //create a new input field
-                    inputStorer.add(textInput);
-                    JButton addButton = new JButton("Add");
+                    inputStorer.add(textInput);//add the input field to an arraylist to store its reference
+                    JButton addButton = new JButton("Add");//create the button to add elements
                     addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"title"));
-                    addButton.setActionCommand("add");
+                    addButton.setActionCommand("add");//give the button an action listener and an action command
                     inputPanel.add(textInput);
-                    inputPanel.add(addButton);
+                    inputPanel.add(addButton);//add both the input field and the button to their panel
                 }
             }
             else if(menu.equals("name") && i < (user.getName().size() + user.getTitle().size()) && i > user.getTitle().size() - 1)
             {
                 selButton = new JRadioButton(user.getName().get(i - user.getTitle().size())); //new Radio Button per attribute
-                radButtons.add(selButton);
-                if(i == (user.getName().size() + user.getTitle().size()) - 1)
+                radButtons.add(selButton);//store the reference of the radio buttons
+                nameRad.add(selButton);//add the radio buttons to a group to make sure only 1 can be selected at a time
+                if(i == (user.getName().size() + user.getTitle().size()) - 1)//this statement adds the input field to add new elements at the end of the page
                 {
                     textInput = new JTextField(10); //create a new input field
-                    inputStorer.add(textInput);
-                    JButton addButton = new JButton("Add");
+                    inputStorer.add(textInput);//add the input field to an arraylist to store its reference
+                    JButton addButton = new JButton("Add");//create the button to add elements
                     addButton.setActionCommand("add");
-                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"name"));
+                    addButton.addActionListener(new radListener(selButton, fileName, panel,inputStorer,"name"));//give the button an action listener and an action command
                     inputPanel.add(textInput);
-                    inputPanel.add(addButton);
+                    inputPanel.add(addButton);//add both the input field and the button to their panel
                 }
             }
             else if(menu.equals("email") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size()) && i > user.getName().size() + user.getTitle().size() - 1)
-            {
+            {//same structure as previous, see previous if for comments
                 selButton = new JRadioButton(user.getEmail().get(i - (user.getName().size() + user.getTitle().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                emailRad.add(selButton);
                 if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size()) - 1)
                 {
                     textInput = new JTextField(10); //create a new input field
@@ -167,9 +217,10 @@ public class panelBuilder
                 }
             } 
             else if (menu.equals("phoneNumber") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()) && i > user.getEmail().size() + user.getName().size() + user.getTitle().size() - 1)
-            {
+            {//same structure as previous, see previous if for comments
                 selButton = new JRadioButton(contact.getPhoneNumber().get(i - (user.getEmail().size() + user.getName().size() + user.getTitle().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                phoneRad.add(selButton);
                 if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()) - 1)
                 {
                     textInput = new JTextField(10); //create a new input field
@@ -182,13 +233,14 @@ public class panelBuilder
                 }
             }
             else if (menu.equals("address") && i < (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() + contact.getAddress().size()) && i > user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() - 1)
-            {
+            {//same structure as previous, see first if for comments
                 if (i == user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size())
                 {
                     addressBoxPanel.add(addressCheck);
                 }
                 selButton = new JRadioButton(contact.getAddress().get(i - (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size()))); //new Radio Button per attribute
                 radButtons.add(selButton);
+                addressRad.add(selButton);
                 if(i == (user.getEmail().size() + user.getName().size() + user.getTitle().size() + contact.getPhoneNumber().size() + contact.getAddress().size()) - 1)
                 {
                     textInput = new JTextField(10); //create a new input field
@@ -223,9 +275,9 @@ public class panelBuilder
             
             panel.add(titleBoxPanel,gbc);
             panel.add(addressBoxPanel,gbc);
-            panel.add(butPanel, gbc);//add the button panel to the main panel with gbc
-            panel.add(inputPanel, gbc);
-            panelStorer.add(panel);
+            panel.add(butPanel, gbc);
+            panel.add(inputPanel, gbc);//add all panels to the main panel
+            panelStorer.add(panel);//keep a reference
             
         }
     }

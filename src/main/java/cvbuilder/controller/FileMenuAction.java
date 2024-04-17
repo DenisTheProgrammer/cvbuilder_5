@@ -62,7 +62,7 @@ public class FileMenuAction implements ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         if(e.getActionCommand().equals("open"))
-        {//finally test the open function on my laptop where the file path is correct to make sure the work around works
+        {
             JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")); //opens a file chooser to the project directory
             int open = fileChooser.showOpenDialog(new JFrame()); //shows 1 on cancel and 0 on opening a file
             if(open == 0) 
