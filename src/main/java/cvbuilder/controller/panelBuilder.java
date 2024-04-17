@@ -429,9 +429,6 @@ public class panelBuilder
                 
                 MainViewer app = MainViewer.getInstance();
                 
-                int indexToCut = (view.getOpenFile().getAbsolutePath().indexOf("cvbuilder_5") + 12);//get the index for string manipulation
-                String openFileName = view.getOpenFile().getAbsolutePath().substring(indexToCut);//the file getter method only gets the file name and so gives error if the file is in a folder, this bypasses that
-                
                 app.getTitlePan().removeAll();
                 app.getNamePan().removeAll();
                 app.getEmailPan().removeAll();

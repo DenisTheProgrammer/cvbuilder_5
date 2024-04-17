@@ -86,8 +86,8 @@ public class FileMenuAction implements ActionListener
                 view.getNamePan().removeAll();
                 view.getEmailPan().removeAll();
                 view.getPhonePan().removeAll();
-                view.getAddressPan().removeAll();//clear the content of all pans
-                //view.getEndPan().removeAll(); - the bottom elements will also need to be removed for repainting when they get added
+                view.getAddressPan().removeAll();
+                view.getEndPan().removeAll();//clear the content of all pans
 
                 view.getAppFrame().getContentPane().removeAll();//remove all content from the view
                 
